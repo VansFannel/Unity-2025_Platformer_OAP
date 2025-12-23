@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 291394631}
   - component: {fileID: 291394630}
   - component: {fileID: 291394629}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ Transform:
   m_GameObject: {fileID: 291394625}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.71, y: -0.21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -881,7 +881,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1251720152}
   - component: {fileID: 1251720151}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1033,6 +1033,14 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9118858020983486436, guid: 96a73e93afe267d48872f4ffcd97ba17, type: 3}
+      propertyPath: boxSize.x
+      value: 0.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118858020983486436, guid: 96a73e93afe267d48872f4ffcd97ba17, type: 3}
+      propertyPath: boxSize.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118858020983486436, guid: 96a73e93afe267d48872f4ffcd97ba17, type: 3}
       propertyPath: controller
       value: 
       objectReference: {fileID: 0}
@@ -1043,6 +1051,14 @@ PrefabInstance:
     - target: {fileID: 9118858020983486436, guid: 96a73e93afe267d48872f4ffcd97ba17, type: 3}
       propertyPath: acceleration
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118858020983486436, guid: 96a73e93afe267d48872f4ffcd97ba17, type: 3}
+      propertyPath: castDistance
+      value: 0.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118858020983486436, guid: 96a73e93afe267d48872f4ffcd97ba17, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3634864664382705602, guid: 96a73e93afe267d48872f4ffcd97ba17, type: 3}

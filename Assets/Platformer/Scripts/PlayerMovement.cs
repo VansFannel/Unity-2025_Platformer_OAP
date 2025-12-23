@@ -15,6 +15,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float acceleration = 300.0f;
     [SerializeField] float brakingCoefficient = 0.05f;
 
+    public Vector2 boxSize;
+    public float castDistance;
+    public LayerMask groundLayer;
+
     private Rigidbody2D rb2D;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
@@ -88,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
             spriteRenderer.flipX = true;
         }
 
-        if (mustJump)
+        if (mustJump && IsGrounded())
         {
             mustJump = false;
 
@@ -104,5 +108,21 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         
+    }
+
+    public bool IsGrounded()
+    {
+        return Physics2D.BoxCast(
+            transform.position,
+            boxSize,
+            0,
+            -transform.up,
+            castDistance,
+            groundLayer);
+    }
+
+    public void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position - transform.up * castDistance, boxSize);
     }
 }
