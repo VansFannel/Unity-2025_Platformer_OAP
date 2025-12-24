@@ -85,25 +85,19 @@ public class PlayerMovement : MonoBehaviour
     //   If one frame takes longer to be processed, then the time between calls update will be different.
     void Update()
     {
-        //Debug.Log(rb2D.linearVelocityY);
         rb2D.linearVelocityX = moveInput.x * speed;
 
         if (moveInput.x != 0.0f)
         {
-            //animator.SetBool("IsWalking", true);
             SetAnimatorState(AnimatorState.Walking);
         }
         else
         {
-            //animator.SetBool("IsWalking", false);
             SetAnimatorState(AnimatorState.Idle);
         }
 
         if (rb2D.linearVelocityY < fallingThreshold)
         {
-            //Debug.Log("Is Fallingggggg");
-            //animator.SetBool("IsFalling", true);
-            //animator.SetBool("IsJumping", false);
             SetAnimatorState(AnimatorState.Falling);
         }
 
@@ -118,10 +112,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (mustJump && IsGrounded())
         {
-            //Debug.Log("Jumping");
-
-            //animator.SetBool("IsJumping", true);
-            //animator.SetBool("IsWalking", false);
             SetAnimatorState(AnimatorState.Jumping);
 
             mustJump = false;
@@ -149,12 +139,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (colliders[i].gameObject != gameObject)
                 {
-                    Debug.Log("Not jumping");
                     isJumping = false;
-
-                    animator.SetBool("IsFalling", false);
-                    animator.SetBool("IsJumping", false);
-                    animator.SetBool("IsWalking", false);
                     break;
                 }
             }
