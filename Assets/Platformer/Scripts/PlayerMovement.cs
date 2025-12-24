@@ -142,10 +142,10 @@ public class PlayerMovement : MonoBehaviour
                     isJumping = false;
 
                     animator.SetBool("IsFalling", false);
+                    break;
                 }
             }
-        }
-        
+        }        
     }
 
     public bool IsGrounded()
