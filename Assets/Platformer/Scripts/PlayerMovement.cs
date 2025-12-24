@@ -19,8 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private Transform groundCheck;
 
     private const float groundedRadius = .2f;
-    private bool grounded;
-    private const float fallingThreshold = 0.0f;
+    private const float fallingThreshold = -0.1f;
 
     public Vector2 boxSize;
     public float castDistance;
@@ -34,6 +33,14 @@ public class PlayerMovement : MonoBehaviour
 
     private bool mustJump = false;
     private bool isJumping = false;
+
+    private enum AnimatorState
+    {
+        Idle,
+        Walking,
+        Jumping,
+        Falling
+    }
 
     private void Awake()
     {
@@ -51,20 +58,20 @@ public class PlayerMovement : MonoBehaviour
     {
         moveInput = context.ReadValue<Vector2>();
 
-        Debug.Log($"Move Input: {moveInput}");
+        //Debug.Log($"Move Input: {moveInput}");
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            Debug.Log($"We are supposed to jump.");
+            //Debug.Log($"We are supposed to jump.");
 
             mustJump = true;
         }
         else
         {
-            Debug.Log($"We are supposed to NOT jump.");
+            //Debug.Log($"We are supposed to NOT jump.");
         }
     }
 
@@ -78,21 +85,26 @@ public class PlayerMovement : MonoBehaviour
     //   If one frame takes longer to be processed, then the time between calls update will be different.
     void Update()
     {
+        //Debug.Log(rb2D.linearVelocityY);
         rb2D.linearVelocityX = moveInput.x * speed;
 
         if (moveInput.x != 0.0f)
         {
-            animator.SetBool("IsWalking", true);
+            //animator.SetBool("IsWalking", true);
+            SetAnimatorState(AnimatorState.Walking);
         }
         else
         {
-            animator.SetBool("IsWalking", false);
+            //animator.SetBool("IsWalking", false);
+            SetAnimatorState(AnimatorState.Idle);
         }
 
         if (rb2D.linearVelocityY < fallingThreshold)
         {
-            animator.SetBool("IsFalling", true);
-            animator.SetBool("IsJumping", false);
+            //Debug.Log("Is Fallingggggg");
+            //animator.SetBool("IsFalling", true);
+            //animator.SetBool("IsJumping", false);
+            SetAnimatorState(AnimatorState.Falling);
         }
 
         if (moveInput.x > 0.0f)
@@ -106,10 +118,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (mustJump && IsGrounded())
         {
-            Debug.Log("Jumping");
+            //Debug.Log("Jumping");
 
-            animator.SetBool("IsJumping", true);
-            animator.SetBool("IsWalking", false);
+            //animator.SetBool("IsJumping", true);
+            //animator.SetBool("IsWalking", false);
+            SetAnimatorState(AnimatorState.Jumping);
 
             mustJump = false;
             isJumping = true;
@@ -124,10 +137,8 @@ public class PlayerMovement : MonoBehaviour
     //  * Adjusting physics (Rigidbody) objetcs.
     private void FixedUpdate()
     {
-        if (rb2D.linearVelocityY < fallingThreshold)
+        if (isJumping && (rb2D.linearVelocityY < fallingThreshold))
         {
-            bool wasGrounded = grounded;
-            grounded = false;
             Collider2D[] colliders =
                 Physics2D.OverlapCircleAll(
                     groundCheck.position,
@@ -142,6 +153,8 @@ public class PlayerMovement : MonoBehaviour
                     isJumping = false;
 
                     animator.SetBool("IsFalling", false);
+                    animator.SetBool("IsJumping", false);
+                    animator.SetBool("IsWalking", false);
                     break;
                 }
             }
@@ -163,5 +176,34 @@ public class PlayerMovement : MonoBehaviour
     public void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position - transform.up * castDistance, boxSize);
+    }
+
+    private void SetAnimatorState(AnimatorState state)
+    {
+        switch (state)
+        {
+            case AnimatorState.Walking:
+                animator.SetBool("IsWalking", true);
+                animator.SetBool("IsJumping", false);
+                animator.SetBool("IsFalling", false);
+                break;
+            case AnimatorState.Jumping:
+                animator.SetBool("IsWalking", false);
+                animator.SetBool("IsJumping", true);
+                animator.SetBool("IsFalling", false);
+                break;
+            case AnimatorState.Falling:
+                animator.SetBool("IsWalking", false);
+                animator.SetBool("IsJumping", false);
+                animator.SetBool("IsFalling", true);
+                break;
+
+            case AnimatorState.Idle:
+            default:
+                animator.SetBool("IsWalking", false);
+                animator.SetBool("IsJumping", false);
+                animator.SetBool("IsFalling", false);
+                break;
+        }
     }
 }
