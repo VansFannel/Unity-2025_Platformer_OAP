@@ -15,6 +15,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float acceleration = 300.0f;
     [SerializeField] float brakingCoefficient = 0.05f;
 
+    [SerializeField]
+    private Transform groundCheck;
+
+    private const float groundedRadius = .2f;
+    private bool grounded;
+    private const float fallingThreshold = 0.0f;
+
     public Vector2 boxSize;
     public float castDistance;
     public LayerMask groundLayer;
@@ -26,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
 
     private bool mustJump = false;
+    private bool isJumping = false;
 
     private void Awake()
     {
@@ -48,8 +56,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-
-        Debug.Log($"Jumping {context.performed}");
         if (context.performed)
         {
             Debug.Log($"We are supposed to jump.");
@@ -58,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            Debug.Log($"Not jumping.");
+            Debug.Log($"We are supposed to NOT jump.");
         }
     }
 
@@ -83,6 +89,12 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("IsWalking", false);
         }
 
+        if (rb2D.linearVelocityY < fallingThreshold)
+        {
+            animator.SetBool("IsFalling", true);
+            animator.SetBool("IsJumping", false);
+        }
+
         if (moveInput.x > 0.0f)
         {
             spriteRenderer.flipX = false;
@@ -94,11 +106,16 @@ public class PlayerMovement : MonoBehaviour
 
         if (mustJump && IsGrounded())
         {
+            Debug.Log("Jumping");
+
+            animator.SetBool("IsJumping", true);
+            animator.SetBool("IsWalking", false);
+
             mustJump = false;
+            isJumping = true;
 
             rb2D.linearVelocityY = jumpHeight;
         }
-
     }
 
     // Called every physics step.
@@ -107,18 +124,40 @@ public class PlayerMovement : MonoBehaviour
     //  * Adjusting physics (Rigidbody) objetcs.
     private void FixedUpdate()
     {
+        if (rb2D.linearVelocityY < fallingThreshold)
+        {
+            bool wasGrounded = grounded;
+            grounded = false;
+            Collider2D[] colliders =
+                Physics2D.OverlapCircleAll(
+                    groundCheck.position,
+                    groundedRadius,
+                    groundLayer);
+
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                if (colliders[i].gameObject != gameObject)
+                {
+                    Debug.Log("Not jumping");
+                    isJumping = false;
+
+                    animator.SetBool("IsFalling", false);
+                }
+            }
+        }
         
     }
 
     public bool IsGrounded()
     {
-        return Physics2D.BoxCast(
-            transform.position,
-            boxSize,
-            0,
-            -transform.up,
-            castDistance,
-            groundLayer);
+        return
+            Physics2D.BoxCast(
+                transform.position,
+                boxSize,
+                0,
+                -transform.up,
+                castDistance,
+                groundLayer);
     }
 
     public void OnDrawGizmos()
