@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -33,5 +34,15 @@ public class MoveCamera : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
+    }
+
+    internal void SetAutoMove(bool value)
+    {
+        autoMove = value;
+    }
+
+    internal void SetSpeed(float newSpeed)
+    {
+        throw new NotImplementedException();
     }
 }
