@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
         //musicManager.PlayMenuMusic();
 
         InputReader.Instance.EnableUIInputs(true);
+        InputReader.Instance.EnablePlayerInputs(false);
     }
 
     public void SetupEventListeners()
@@ -83,6 +84,7 @@ public class GameManager : MonoBehaviour
             //StarGameSystems();
 
             InputReader.Instance.EnableUIInputs(false);
+            InputReader.Instance.EnablePlayerInputs(true);
         }
     }
 
@@ -161,6 +163,7 @@ public class GameManager : MonoBehaviour
         //musicManager.PlayMenuMusic();
 
         InputReader.Instance.EnableUIInputs(true);
+        InputReader.Instance.EnablePlayerInputs(false);
     }
 
     private IEnumerator FadeInBgImageRoutine()
