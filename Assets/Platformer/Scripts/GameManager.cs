@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     //[SerializeField] private PlatformRepositioner platformRepositioner;
 
     [Header("Music Manager")]
-    //[SerializeField] private MusicManager musicManager;
+    [SerializeField] private MusicManager musicManager;
 
     private bool gameStarted = false;
     private Vector3 cameraInitialPosition;
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
         mainMenuController.ShowMenu();
         gameHud.SetActive(false);
         //moveCamera.SetAutoMove(false);
-        //musicManager.PlayMenuMusic();
+        musicManager.PlayMenuMusic();
 
         InputReader.Instance.EnableUIInputs(true);
         InputReader.Instance.EnablePlayerInputs(false);
@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
             gameHud.SetActive(true);
             //ShowGameControls();
 
-            //StarGameSystems();
+            StartGameSystems();
 
             InputReader.Instance.EnableUIInputs(false);
             InputReader.Instance.EnablePlayerInputs(true);
@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
     private void StartGameSystems()
     {
         //moveCamera.SetAutoMove(true);
-        //musicManager.PlayGameplayMusic();
+        musicManager.PlayGameplayMusic();
         //SetCameraDefaultMovementSpeed();
         //playerController.PlayRun();
         //enemySpawnner.StartSpawning();
@@ -160,7 +160,7 @@ public class GameManager : MonoBehaviour
         moveCamera.SetAutoMove(false);
         moveCamera.transform.position = cameraInitialPosition;
 
-        //musicManager.PlayMenuMusic();
+        musicManager.PlayMenuMusic();
 
         InputReader.Instance.EnableUIInputs(true);
         InputReader.Instance.EnablePlayerInputs(false);

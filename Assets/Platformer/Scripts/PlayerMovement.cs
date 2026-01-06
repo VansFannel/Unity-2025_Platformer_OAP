@@ -18,6 +18,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Transform groundCheck;
 
+    [Header("SFX")]
+    [SerializeField] private AudioClip jumpSoundClip;
+
     private const float groundedRadius = .2f;
     private const float fallingThreshold = -0.1f;
 
@@ -34,6 +37,8 @@ public class PlayerMovement : MonoBehaviour
     private bool mustJump = false;
     private bool isJumping = false;
 
+    private AudioSource audioSource;
+
     private enum AnimatorState
     {
         Idle,
@@ -47,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -118,6 +125,8 @@ public class PlayerMovement : MonoBehaviour
             isJumping = true;
 
             rb2D.linearVelocityY = jumpHeight;
+
+            SoundFXManager.instance.PlaySoundFXClip(jumpSoundClip, transform, 1.0f);
         }
     }
 
