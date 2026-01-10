@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class ScoreTracker : MonoBehaviour
 {
+    public static ScoreTracker instance;
+
     //[SerializeField] private int scoreStep = 5;
     //[SerializeField] private float scoreIncrementInterval = .2f;
     //[SerializeField] float newHighScoreBannerShowTime = 2f;
@@ -22,6 +24,16 @@ public class ScoreTracker : MonoBehaviour
     //private WaitForSeconds scoreIncrementWait;
 
     //public bool HasNewRecord { get; private set; } = false; 
+
+    private const int cherryScore = 10;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
 
     void Start()
     {
@@ -105,4 +117,10 @@ public class ScoreTracker : MonoBehaviour
         }
     }
     */
+
+    public void AddCherryScore()
+    {
+        Score += cherryScore;
+        scoreText.text = "Score: " + Score.ToString("D5");
+    }
 }
