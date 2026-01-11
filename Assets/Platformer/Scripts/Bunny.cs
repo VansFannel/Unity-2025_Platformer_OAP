@@ -6,6 +6,9 @@ public class Bunny : MonoBehaviour
     [SerializeField] private float speed = 2.0f;
     [SerializeField] Animator animator;
 
+    [Header("SFX")]
+    [SerializeField] private AudioClip enemySoundClip;
+
     private bool isJumping = false;
     private float direction = 1.0f;
 
@@ -32,5 +35,16 @@ public class Bunny : MonoBehaviour
     private void SetJumping(bool jumping)
     {
         isJumping = jumping;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            SoundFXManager.instance.PlaySoundFXClip(enemySoundClip, transform, 1.0f);
+            ScoreTracker.instance.AddBunnyScore();
+
+            Destroy(gameObject);
+        }
     }
 }

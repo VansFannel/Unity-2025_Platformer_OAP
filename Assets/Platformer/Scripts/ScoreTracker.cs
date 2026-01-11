@@ -26,6 +26,7 @@ public class ScoreTracker : MonoBehaviour
     //public bool HasNewRecord { get; private set; } = false; 
 
     private const int cherryScore = 10;
+    private const int bunnyScore = 50;
 
     private void Awake()
     {
@@ -121,6 +122,12 @@ public class ScoreTracker : MonoBehaviour
     public void AddCherryScore()
     {
         Score += cherryScore;
+        scoreText.text = "Score: " + Score.ToString("D5");
+    }
+
+    internal void AddBunnyScore()
+    {
+        Score += bunnyScore;
         scoreText.text = "Score: " + Score.ToString("D5");
     }
 }
