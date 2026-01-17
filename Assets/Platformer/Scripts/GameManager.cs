@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameControlsTextInfo;
 
     [Header("Game Elements")]
-    [SerializeField] private PlayerController playerController;
     //[SerializeField] private EnemySpawner enemySpawner;
     //[SerializeField] private PlatformRepositioner platformRepositioner;
 
@@ -24,7 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private MusicManager musicManager;
 
     private bool gameStarted = false;
-    private Vector3 cameraInitialPosition;
+    //private Vector3 cameraInitialPosition;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -158,7 +157,7 @@ public class GameManager : MonoBehaviour
         gameHud.SetActive(false);
 
         moveCamera.SetAutoMove(false);
-        moveCamera.transform.position = cameraInitialPosition;
+       // moveCamera.transform.position = cameraInitialPosition;
 
         musicManager.PlayMenuMusic();
 

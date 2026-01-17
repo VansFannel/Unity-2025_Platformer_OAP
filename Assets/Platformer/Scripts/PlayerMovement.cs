@@ -1,19 +1,16 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.PlayerSettings.SplashScreen;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public PlayerController controller;
-
     [SerializeField] private float speed = 5.0f;
     [SerializeField] private float jumpHeight = 1000.0f;
-    [SerializeField] private float gravity = -9.8f;
-    
+    //[SerializeField] private float gravity = -9.8f;
+
     [Header("Movement")]
-    [SerializeField] float maxSpeed = 100.0f;
-    [SerializeField] float acceleration = 300.0f;
-    [SerializeField] float brakingCoefficient = 0.05f;
+    //[SerializeField] float maxSpeed = 100.0f;
+    //[SerializeField] float acceleration = 300.0f;
+    //[SerializeField] float brakingCoefficient = 0.05f;
 
     [SerializeField]
     private Transform groundCheck;

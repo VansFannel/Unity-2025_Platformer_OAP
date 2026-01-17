@@ -5,7 +5,7 @@ public class Bat : MonoBehaviour
     [SerializeField] private float speed = 2.0f;
 
     private float direction = 1.0f;
-    bool isFlying = true;
+    //bool isFlying = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,11 +21,11 @@ public class Bat : MonoBehaviour
 
     public void StopFlying()
     {
-        isFlying = false;
+        //isFlying = false;
 
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         direction = -direction;
 
-        isFlying = true;
+        //isFlying = true;
     }
 }
