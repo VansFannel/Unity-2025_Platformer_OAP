@@ -15,17 +15,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Image fadingBackgroundImage;
     [SerializeField] private GameObject gameControlsTextInfo;
 
-    [Header("Game Elements")]
-    //[SerializeField] private EnemySpawner enemySpawner;
-    //[SerializeField] private PlatformRepositioner platformRepositioner;
-
     [Header("Music Manager")]
     [SerializeField] private MusicManager musicManager;
 
     private bool gameStarted = false;
-    //private Vector3 cameraInitialPosition;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         InitializeGame();
@@ -39,11 +33,9 @@ public class GameManager : MonoBehaviour
 
     private void InitializeGame()
     {
-        //cameraInitialPosition = moveCamera.transform.position;
 
         mainMenuController.ShowMenu();
         gameHud.SetActive(false);
-        //moveCamera.SetAutoMove(false);
         musicManager.PlayMenuMusic();
 
         InputReader.Instance.EnableUIInputs(true);
@@ -53,21 +45,11 @@ public class GameManager : MonoBehaviour
     public void SetupEventListeners()
     {
         InputReader.Instance.OnAnyInteract += StartGame;
-
-        //playerController.PlayerStartDyingEvent += PreFinishGame;
-        //playerController.PlayerDeadEvent += FinishGame;
-        //playerController.PlayerBriefSlowDown += SetCameraMovementSpeed;
-        //playerController.PlayerKeepRunning += SetCameraDefaultMovementSpeed;
     }
 
     public void RemoveEventListeners()
     {
         InputReader.Instance.OnAnyInteract -= StartGame;
-
-        //playerController.PlayerStartDyingEvent -= PreFinishGame;
-        //playerController.PlayerDeadEvent -= FinishGame;
-        //playerController.PlayerBriefSlowDown -= SetCameraMovementSpeed;
-        //playerController.PlayerKeepRunning -= SetCameraDefaultMovementSpeed;
     }
 
     private void StartGame()
@@ -78,7 +60,6 @@ public class GameManager : MonoBehaviour
 
             mainMenuController.HideMenu();
             gameHud.SetActive(true);
-            //ShowGameControls();
 
             StartGameSystems();
 
@@ -89,28 +70,7 @@ public class GameManager : MonoBehaviour
 
     private void StartGameSystems()
     {
-        //moveCamera.SetAutoMove(true);
         musicManager.PlayGameplayMusic();
-        //SetCameraDefaultMovementSpeed();
-        //playerController.PlayRun();
-        //enemySpawnner.StartSpawning();
-    }
-
-    private void PreFinishGame()
-    {
-        //moveCamera.SetAutoMove(false);
-        //enemySpawner.StopSpawning();
-    }
-
-    private void FinishGame()
-    {
-        StartCoroutine(FinishGameRoutine());
-    }
-
-    private void ShowGameControls()
-    {
-        ActivateGameControlsInfoText();
-        Invoke(nameof(DeactivateGameControlsInfoText), 2.0f);
     }
 
     private void ActivateGameControlsInfoText()
@@ -157,7 +117,6 @@ public class GameManager : MonoBehaviour
         gameHud.SetActive(false);
 
         moveCamera.SetAutoMove(false);
-       // moveCamera.transform.position = cameraInitialPosition;
 
         musicManager.PlayMenuMusic();
 
@@ -173,11 +132,5 @@ public class GameManager : MonoBehaviour
     private IEnumerator FadeOutBgImageRoutine()
     {
         yield return null;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

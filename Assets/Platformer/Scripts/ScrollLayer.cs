@@ -10,7 +10,6 @@ public class ScrollLayer : MonoBehaviour
 
     private Transform[] backgrounds = new Transform[2];
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if (transform.childCount != 2)

@@ -5,13 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 5.0f;
     [SerializeField] private float jumpHeight = 1000.0f;
-    //[SerializeField] private float gravity = -9.8f;
-
-    [Header("Movement")]
-    //[SerializeField] float maxSpeed = 100.0f;
-    //[SerializeField] float acceleration = 300.0f;
-    //[SerializeField] float brakingCoefficient = 0.05f;
-
+    
     [SerializeField]
     private Transform groundCheck;
 
@@ -61,16 +55,12 @@ public class PlayerMovement : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
-
-        //Debug.Log($"Move Input: {moveInput}");
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            //Debug.Log($"We are supposed to jump.");
-
             mustJump = true;
         }
         else

@@ -33,9 +33,7 @@ public class InputReader : MonoBehaviour
     {
         input.Player.Enable();
 
-        //input.Player.Attack.performed += HandleAttackInput;
         input.Player.Jump.performed += HandleJumpInput;
-        //input.Player.Slide.performed += HandleSlideInput;
 
         input.UI.Submit.performed += ctx => OnAnyInteract.Invoke();
     }
@@ -44,16 +42,10 @@ public class InputReader : MonoBehaviour
     {
         input.Player.Disable();
 
-        //input.Player.Attack.performed -= HandleAttackInput;
-        //input.Player.Jump.performed -= HandleJumpInput;
-        //input.Player.Slide.performed -= HandleSlideInput;
-
         input.UI.Submit.performed -= ctx => OnAnyInteract.Invoke();
     }
 
-    private void HandleAttackInput(InputAction.CallbackContext obj) => OnAttackInput.Invoke();
     private void HandleJumpInput(InputAction.CallbackContext obj) => OnAttackInput.Invoke();
-    private void HandleSlideInput(InputAction.CallbackContext obj) => OnAttackInput.Invoke();
 
     public void EnableUIInputs(bool enable)
     {
